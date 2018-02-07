@@ -8,19 +8,19 @@ import Todo from './models/Todo'
 
 const app = express()
 
+mongoose.connect('mongodb://localhost:27017/todos')
+mongoose.connection
+  .once('open', ()=> console.log('DB connected'))
+  .on('error', () => console.log('DB connection failed'))
+
+app.use(morgan('dev'))
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
-app.use(morgan('dev'))
+
 
 app.get('/', (req, res) => {
   res.send('hello')
 })
-
-mongoose.connect('mongodb://localhost:27017/todos')
-
-mongoose.connection
-  .once('open', ()=> console.log('DB connected'))
-  .on('error', () => console.log('DB connection failed'))
 
 
 const server = http.createServer(app)

@@ -24,6 +24,17 @@ const defaultData ={
 class App extends Component {
   constructor(props){
     super(props)
+    this.state={
+      data:defaultData,
+      todos:[],
+      editState:false,
+      deleteConfirm:false,
+      errors:{}
+    }
+
+}
+
+  componentDidMount(){
 
     socket.emit('loadInitialData')
 
@@ -56,16 +67,9 @@ class App extends Component {
         todos: this.state.todos.filter((item) => item._id !== result)
       })
     })
-
-  this.state={
-    data:defaultData,
-    todos:[],
-    editState:false,
-    deleteConfirm:false,
-    errors:{}
   }
 
-}
+
 
   cancelEditState(){
     this.setState({
